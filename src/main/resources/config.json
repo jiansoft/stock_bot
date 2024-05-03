@@ -1,0 +1,31 @@
+{
+  "system": {
+    "grpc_use_port": 9002,
+    "ssl_cert_file": "fullchain.pem",
+    "ssl_key_file": "privkey.pem"
+  },
+  "bot": {
+    "telegram": {
+      "token": "",
+      "allowed": {}
+    }
+
+  },
+  "rpc": {
+    "go_service": {
+      "target": "go_service",
+      "tls_cert_file": "cert_file",
+      "tls_key_file": "key_file",
+      "domain_name": "domain_name"
+    },
+    "rust_service": {
+      "target": "rust_service",
+      "tls_cert_file": "cert_file",
+      "tls_key_file": "key_file",
+      "domain_name": "domain_name"
+    }
+  },
+  "host": "localhost",
+  "port": 8080,
+  "useSSL": true
+}

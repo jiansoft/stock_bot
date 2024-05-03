@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs"/>
+    <property name="Charset" value="UTF-8" />
+    <property name="Format1" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+    <timestamp key="byDay" datePattern="yyyyMMdd"/>
+
+    <!-- 定義以Console顯示日誌 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${Format1}</pattern>
+            <charset>${Charset}</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/${byDay}.log</file>
+        <encoder>
+            <pattern>${Format1}</pattern>
+            <charset>${Charset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/%d{yyyyMMdd}.log.zip</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SPRING-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/${byDay}-spring.log</file>
+        <encoder>
+            <pattern>${Format1}</pattern>
+            <charset>${Charset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/%d{yyyyMMdd}-spring.log.zip</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="MYAPP-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/${byDay}-stock.log</file>
+        <encoder>
+            <pattern>${Format1}</pattern>
+            <charset>${Charset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/%d{yyyyMMdd}-myapp.log.zip</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.zapto.jiansoft.bot" level="TRACE" additivity="false">
+        <appender-ref ref="MYAPP-LOG" />
+    </logger>
+
+    <logger name="org.springframework" level="DEBUG" additivity="false">
+        <appender-ref ref="SPRING-LOG" />
+    </logger>
+
+    <root level="debug">
+        <!-- 連接到名為STDOUT的日誌格式 -->
+        <appender-ref ref="STDOUT" />
+        <!-- 連接到名為FILE的日誌格式 -->
+        <appender-ref ref="FILE" />
+        <!--<appender-ref ref="DEBUG-LOG" />
+      <appender-ref ref="INFO-LOG" />
+      <appender-ref ref="WARN-LOG" />
+      <appender-ref ref="ERROR-LOG" /> -->
+  </root>
+</configuration>
